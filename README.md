@@ -22,8 +22,11 @@ The script reads the twitter file and deletes one by one starting with the oldes
 3. Set the required environment variables
 
 **Create new Google Apps Script project [Google Apps Script](https://script.google.com)**
+
 **Copy deleteTweets.gs file in you GAS project and configure variables**
+
 **Add new spreadsheet file in your GAS project and import tweets.csv file from your twitter archive**
+
 **Execute script and enjoy your life**
 
 
