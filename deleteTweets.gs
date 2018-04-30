@@ -27,8 +27,11 @@ function deleteTweets() {
     var tweet_age = parseInt((NOW_DATE-tweet_date)/1000/60/60/24);
     
     if (tweet_age > MAX_AGE_IN_DAYS && tweet_id != SAVE_THIS_TWEET) { 
-      Utilities.sleep(1000)
-      destroy(tweet_id);
+      //Utilities.sleep(1000)
+      if (destroy(tweet_id)) {
+        console.log('Deleted ' + tweet_id + " " + tweet_age + " old.");
+        sheet.deleteRow(i);
+      } 
     }
   }
 }
@@ -41,11 +44,12 @@ function destroy(tweet_id) {
   
   try {
     var result = authUrlFetch.fetch('https://api.twitter.com/1.1/statuses/destroy/' + tweet_id + '.json', '', options); 
-    console.log('Deleted ' + tweet_id);
+    return(true);
   }  
   catch (e) {
     console.log('Error deleting ' + tweet_id);
     console.log(e.toString());
+    return(false);
   }   
 }
 
