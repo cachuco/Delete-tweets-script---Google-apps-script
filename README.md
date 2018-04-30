@@ -4,7 +4,7 @@ Delete all tweets and retweets from your account or delete all tweets posted bef
 
 The script reads the twitter file and deletes one by one starting with the oldest tweet. It is possible to set a number of days (MAX_AGE_IN_DAYS) for which there are no more tweets, for example: if MAX_AGE_IN_DAYS = 30, the script will not delete the tweets published in the last 30 days. It is also possible to define a specific ID that we do not want to eliminate, for example, if we put the ID of our first tweet in the SAVE_THIS_TWEET variable, it will not be deleted.
 
-[Google Apps Script has a limitation](https://developers.google.com/apps-script/guides/services/quotas) on the script runtime of 6 min, so it is advisable to schedule a script execution automatically every 30 minutes so as not to exceed the limits of the Twitter API requests.
+[Google Apps Script has a limitation](https://developers.google.com/apps-script/guides/services/quotas) on the script runtime of 6 min, so it is advisable to schedule a script execution automatically every 15 minutes so as not to exceed the limits of the Twitter API requests. (Running the script every 15 minutes approximately 5,000 tweets per hour are deleted.)
 
 ## Prerequisites
 
@@ -60,3 +60,7 @@ var TWEETS_CSV_SPREADSHEET_ID = 'SPREADSHEET ID WITH TWITTER HISTORY';
 # Versioning
 
 1.0.1
+
+# License
+
+See the [LICENSE](LICENSE.md) file for license rights and limitations (GPL-3).

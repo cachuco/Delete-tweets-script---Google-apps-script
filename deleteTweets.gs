@@ -2,18 +2,18 @@
 var TWITTER_USER        = 'YOUR TWITTER USER NAME';
 var MAX_AGE_IN_DAYS     = 7; //0 to delete all tweets
 var SAVE_THIS_TWEET     = 0;
-//from dev.twitter.com
+//From apps.twitter.com
 var CONSUMER_KEY        = 'YOUR CONSUMER KEY';
 var CONSUMER_SECRET     = 'YOUR CONSUMER CONSUMER_SECRET';
 var ACCESS_TOKEN        = 'YOUR ACCESS TOKEN';
 var ACCESS_SECRET       = 'YOUR ACCESS SECRET';
-
 //From Google Drive
 var TWEETS_CSV_SPREADSHEET_ID = 'SPREADSHEET ID WITH TWITTER HISTORY';
 
 //You shouldn't have to change anything below this line
 var NOW_DATE = new Date();
 var authUrlFetch;
+var destroy_tweets = 0;
 
 function deleteTweets() {
   var connection = getTwitterService();
@@ -27,10 +27,10 @@ function deleteTweets() {
     var tweet_age = parseInt((NOW_DATE-tweet_date)/1000/60/60/24);
     
     if (tweet_age > MAX_AGE_IN_DAYS && tweet_id != SAVE_THIS_TWEET) { 
-      //Utilities.sleep(1000)
+      destroy_tweets++;
       if (destroy(tweet_id)) {
-        console.log('Deleted ' + tweet_id + " " + tweet_age + " old.");
-        sheet.deleteRow(i);
+        console.log('Deleted ' + tweet_id + " - " + tweet_age + " days old. Tweets destroy: " + destroy_tweets);
+        sheet.deleteRow(i); //remove spreadsheet row with current destroyed tweet
       } 
     }
   }
