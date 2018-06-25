@@ -17,7 +17,7 @@ var destroy_tweets = 0;
 
 function deleteTweets() {
   var connection = getTwitterService();
-  var sheet = SpreadsheetApp.openById(TWEETS_CSV_SPREDSHEET_ID);
+  var sheet = SpreadsheetApp.openById(TWEETS_CSV_SPREADSHEET_ID);
   var data = sheet.getDataRange().getValues();
   for(var i = data.length - 1; i > 1; i--){
     var tweet = data[i];
