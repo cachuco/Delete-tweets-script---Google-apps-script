@@ -8,7 +8,7 @@ var CONSUMER_SECRET     = 'YOUR CONSUMER CONSUMER_SECRET';
 var ACCESS_TOKEN        = 'YOUR ACCESS TOKEN';
 var ACCESS_SECRET       = 'YOUR ACCESS SECRET';
 //From Google Drive
-var TWEETS_CSV_SPREADSHEET_ID = 'SPREADSHEET ID WITH TWITTER HISTORY';
+var TWEET_JS_FILE = 'TWEETS.JS FILE ID';
 
 //You shouldn't have to change anything below this line
 var NOW_DATE = new Date();
@@ -16,24 +16,34 @@ var authUrlFetch;
 var destroy_tweets = 0;
 
 function deleteTweets() {
-  var connection = getTwitterService();
-  var sheet = SpreadsheetApp.openById(TWEETS_CSV_SPREADSHEET_ID);
-  var data = sheet.getDataRange().getValues();
-  for(var i = data.length - 1; i > 1; i--){
+  //var connection = getTwitterService();
+  var file = DriveApp.getFileById(TWEET_JS_FILE); 
+  var content = file.getBlob().getDataAsString();
+  var data = JSON.parse(content.replace("window.YTD.tweet.part0 = ", ""));//Parse file as json array
+  var tweetsToDelete = data.length;
+  console.log("Total Tweets to delete: " + data.length);
+  
+  if (data.length > 1000) { tweetsToDelete = 1000; }
+  
+  for(var i = tweetsToDelete - 1; i >= 0; i--){      
     var tweet = data[i];
-    var tweet_id = tweet[0];
-    var str = tweet[3].substring(0, 10).match(/^(\d{4})-(\d{2})-(\d{2})$/);
-    var tweet_date = new Date(+str[1], +str[2] - 1, +str[3]);
-    var tweet_age = parseInt((NOW_DATE-tweet_date)/1000/60/60/24);
+    var tweet_id = tweet.id;
+    var tweet_age = parseInt((NOW_DATE - new Date(tweet.created_at))/1000/60/60/24);
     
     if (tweet_age > MAX_AGE_IN_DAYS && tweet_id != SAVE_THIS_TWEET) { 
+      console.log('Deleting ' + tweet_id);
       destroy_tweets++;
       if (destroy(tweet_id)) {
-        console.log('Deleted ' + tweet_id + " - " + tweet_age + " days old. Tweets destroy: " + destroy_tweets);
-        sheet.deleteRow(i); //remove spreadsheet row with current destroyed tweet
+        console.log('Deleted ' + tweet_id + " - " + tweet_age + " days old. Tweets deleted: " + destroy_tweets);
+        //remove tweet from JSON
+        data.splice(i, 1)
       } 
     }
   }
+  
+  console.log("Update .js file with " + data.length + " tweets.");
+  file.setContent(JSON.stringify(data));
+
 }
 
 function destroy(tweet_id) {

@@ -4,7 +4,7 @@ Delete all tweets and retweets from your account or delete all tweets posted bef
 
 The script reads the twitter file and deletes one by one starting with the oldest tweet. It is possible to set a number of days (MAX_AGE_IN_DAYS) for which there are no more tweets, for example: if MAX_AGE_IN_DAYS = 30, the script will not delete the tweets published in the last 30 days. It is also possible to define a specific ID that we do not want to eliminate, for example, if we put the ID of our first tweet in the SAVE_THIS_TWEET variable, it will not be deleted.
 
-[Google Apps Script has a limitation](https://developers.google.com/apps-script/guides/services/quotas) on the script runtime of 6 min, so it is advisable to schedule a script execution automatically every 15 minutes so as not to exceed the limits of the Twitter API requests. (Running the script every 15 minutes approximately 5,000 tweets per hour are deleted.)
+[Google Apps Script has a limitation](https://developers.google.com/apps-script/guides/services/quotas) on the script runtime of 6 min, so it is advisable to schedule a script execution automatically every 15 minutes so as not to exceed the limits of the Twitter API requests. (Running the script every 10 minutes 6,000 tweets per hour are deleted.)
 
 ## Prerequisites
 
@@ -25,7 +25,7 @@ The script reads the twitter file and deletes one by one starting with the oldes
 
 **Copy deleteTweets.gs file in you GAS project and configure variables**
 
-**Add new spreadsheet file in your GAS project and import tweets.csv file from your twitter archive**
+**Copy your TWEET.JS file from twiiter archive to your Google Drive and save the file ID**
 
 **Execute script and enjoy your life**
 
@@ -42,7 +42,7 @@ var CONSUMER_KEY = 'YOUR CONSUMER KEY';
 var CONSUMER_SECRET = 'YOUR CONSUMER CONSUMER_SECRET';
 var ACCESS_TOKEN = 'YOUR ACCESS TOKEN';
 var ACCESS_SECRET = 'YOUR ACCESS SECRET';
-var TWEETS_CSV_SPREADSHEET_ID = 'SPREADSHEET ID WITH TWITTER HISTORY';
+var TWEET_JS_FILE = 'TWEET.JS FILE ID SAVED IN YOUR GOOGLE DRIVE';
 ```
 
 |variable|description|
@@ -54,12 +54,12 @@ var TWEETS_CSV_SPREADSHEET_ID = 'SPREADSHEET ID WITH TWITTER HISTORY';
 |CONSUMER\_SECRET|The Consumer Secret from your Twitter App|
 |ACCESS\_TOKEN|The Access Token from your Twitter App|
 |ACCESS\_SECRET|The Access Secret from your Twitter App|
-|TWEETS\_CSV\_SPREADSHEET\_ID|ID from spreadsheet with twitter archive csv imported |
+|TWEETS\_JS\_FILE|ID from tweet.js file in your Google Drive |
 
 
 # Versioning
 
-1.0.1
+1.1.0
 
 # License
 

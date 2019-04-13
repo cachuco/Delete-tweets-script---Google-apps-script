@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0] - 2019-04-13
+
+### Fixed
+
+- Updated code to use new files from twitter archive.
+- Updated doc
+
 ## [1.0.1] - 2018-04-30
 
 ### Added
