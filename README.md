@@ -1,6 +1,39 @@
+# ⚠️ DEPRECATED - Thanks, Elon! 🚀🔥
+
+**Este proyecto está más muerto que la verificación azul gratuita.**
+
+En 2018, cuando Twitter era Twitter y los pájaros volaban libres, este script te permitía borrar tus tweets de forma masiva y gratuita usando la API v1.1. Luego llegó un tipo con un cohete, compró el pájaro, lo mató, lo rebautizó como "X" y puso la API detrás de un muro de pago.
+
+**RIP Twitter API Free Tier (2006-2023)** 🪦
+
+Si aún así eres lo suficientemente valiente (o masoquista) para querer hacer funcionar algo similar, aquí tienes lo que necesitas cambiar:
+
+### Cambios mínimos necesarios
+
+| Qué cambió | Antes (gratis y bonito) | Ahora (gracias Elon) |
+|---|---|---|
+| **API** | v1.1 `POST /statuses/destroy/:id` | v2 `DELETE /2/tweets/:id` |
+| **Autenticación** | OAuth 1.0a | OAuth 2.0 con PKCE |
+| **Coste** | $0 | Desde $100/mes (plan Basic) |
+| **Portal de desarrollo** | `apps.twitter.com` | `developer.x.com` (requiere solicitud y aprobación) |
+| **Nombre de la red social** | Twitter 🐦 | X 💀 |
+
+### Si insistes en revivirlo
+
+1. Date de alta en el [X Developer Portal](https://developer.x.com/) y reza para que te aprueben
+2. Contrata como mínimo el plan **Basic ($100/mes)**
+3. Reemplaza el endpoint por `DELETE https://api.x.com/2/tweets/:id`
+4. Migra la autenticación de OAuth 1.0a a OAuth 2.0 con PKCE
+5. Actualiza las cabeceras de autorización a `Bearer Token`
+6. Piensa si realmente vale la pena pagar $100/mes por borrar tweets cuando hay servicios que lo hacen por menos
+
+> *"El que quiera borrar tweets, que pase por caja"* — Elon Musk, probablemente.
+
+---
+
 # Delete tweets script with twitter file - Google Apps Script
 
-Delete all tweets and retweets from your account or delete all tweets posted before the last X days. 
+Delete all tweets and retweets from your account or delete all tweets posted before the last X days.
 
 The script reads the twitter file and deletes one by one starting with the oldest tweet. It is possible to set a number of days (MAX_AGE_IN_DAYS) for which there are no more tweets, for example: if MAX_AGE_IN_DAYS = 30, the script will not delete the tweets published in the last 30 days. It is also possible to define a specific ID that we do not want to eliminate, for example, if we put the ID of our first tweet in the SAVE_THIS_TWEET variable, it will not be deleted.
 
